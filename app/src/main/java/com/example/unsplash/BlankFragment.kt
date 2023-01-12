@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -49,6 +50,7 @@ class BlankFragment : Fragment() {
 
         view.findViewById<Button>(R.id.load).setOnClickListener {
             loadUnsplash()
+
         }
 
         view.findViewById<RecyclerView>(R.id.photos_grid).setOnClickListener {
