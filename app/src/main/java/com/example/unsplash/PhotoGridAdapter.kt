@@ -12,14 +12,17 @@ import com.bumptech.glide.Glide
 
 
 class PhotoGridAdapter(
+    val onImageClick: (String) -> Unit
 
 ) : RecyclerView.Adapter<PhotoGridAdapter.ItemViewHolder>() {
 
+    val data: MutableList<Photo> = mutableListOf()
     val list = mutableListOf<Photo>()
 
     class ItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         val imageView: ImageView = view.findViewById(R.id.image)
         val textView: TextView = view.findViewById(R.id.image_description)
+        // val likes: TextView = view.findViewById(R.id.likes)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -30,18 +33,24 @@ class PhotoGridAdapter(
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        holder.textView.text = list.get(position).description
 
+        // val descriptor = if(photo.description.isNullOrBlank() photo.altDescription else photo.description)
+        holder.textView.text = data.get(position).description
+
+        val photo = data[position]
         Glide.with(holder.itemView.context)
-            .load(list.get(position).urls.regular)
+            .load(data.get(position).urls.regular)
             .into(holder.imageView)
+        // holder.likes.text = photo.likes.toString()
+
+        holder.itemView.setOnClickListener {
+            onImageClick(data[position].urls.regular)
+        }
     }
 
-    override fun getItemCount(): Int {
-        return list.size
-    }
+    override fun getItemCount(): Int = data.size
 
-    class ViewHolder
+    /* class ViewHolder*/
 
 
 }

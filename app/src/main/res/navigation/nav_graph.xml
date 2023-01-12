@@ -9,15 +9,22 @@
         android:id="@+id/blankFragment"
         android:name="com.example.unsplash.BlankFragment"
         android:label="fragment_blank"
-        tools:layout="@layout/fragment_blank" >
+        tools:layout="@layout/fragment_blank">
+        <!--        <argument
+                    android:name="UnsplashArgument"
+                    app:argType="string"
+                    android:defaultValue="0" />-->
+
+
         <action
-            android:id="@+id/action_blankFragment_to_blankFragment2"
-            app:destination="@id/blankFragment2" />
+            android:id="@+id/action_blankFragment_to_fullscreenimage2"
+            app:destination="@id/fullscreenimage" />
     </fragment>
     <fragment
-        android:id="@+id/blankFragment2"
-        android:name="com.example.unsplash.BlankFragment2"
-        android:label="fragment_blank2"
-        tools:layout="@layout/fragment_blank2" />
+        android:id="@+id/fullscreenimage"
+        android:name="com.example.unsplash.FullScreenFragment"
+        android:label="fullscreenimage" />
+
+
 </navigation>
 

@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context=".BlankFragment2">
+    tools:context=".FullScreenFragment"
+    tools:ignore="MissingDefaultResource">
 
-<ImageView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-/>
-
+    <ImageView
+        android:id="@+id/imageFullscreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </FrameLayout>

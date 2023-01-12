@@ -6,6 +6,12 @@ plugins {
 android {
     compileSdk 32
 
+    viewBinding.enabled = true
+
+    buildFeatures {
+        viewBinding = true
+    }
+
     defaultConfig {
         applicationId "com.example.unsplash"
         minSdk 28
