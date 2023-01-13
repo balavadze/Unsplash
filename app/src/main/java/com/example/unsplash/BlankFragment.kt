@@ -51,9 +51,6 @@ class BlankFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.photos_grid)
         recyclerView.adapter = adapter
         binding.load.setOnClickListener { viewModel.loadUnsplash() }
-
-
-
         view.findViewById<RecyclerView>(R.id.photos_grid).setOnClickListener {}
     }
 
@@ -61,7 +58,6 @@ class BlankFragment : Fragment() {
     private fun openImage(url: String) {
         val bundle = Bundle().apply {
             putString(IMG_URL_ARGS, url)
-            // indNavController().navigate(R.id.action_homeFragment_to_fullscreenImageFragment, bundle)
         }
         findNavController().navigate(R.id.action_blankFragment_to_fullscreenimage2, bundle)
     }
