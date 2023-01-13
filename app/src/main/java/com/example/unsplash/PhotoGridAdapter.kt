@@ -16,8 +16,8 @@ class PhotoGridAdapter(
 
 ) : RecyclerView.Adapter<PhotoGridAdapter.ItemViewHolder>() {
 
-    val data: MutableList<Photo> = mutableListOf()
-    val list = mutableListOf<Photo>()
+    var data: MutableList<Photo> = mutableListOf()
+
 
     class ItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         val imageView: ImageView = view.findViewById(R.id.image)

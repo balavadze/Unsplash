@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.unsplash.FullScreenFragment.Companion.IMG_URL_ARGS
@@ -18,15 +19,16 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
 class BlankFragment : Fragment() {
     val adapter = PhotoGridAdapter(::openImage)
 
+    private lateinit var viewModel: MainViewModel
+    private lateinit var binding: FragmentBlankBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("Lifecycle_Tag", "onCreate")
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
     }
-
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -34,44 +36,27 @@ class BlankFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentBlankBinding.inflate(inflater, container, false)
+        binding = FragmentBlankBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("Lifecycle_Tag", "onViewCreated")
-
+        viewModel.viewModelData.observe(viewLifecycleOwner) { viewModelData ->
+            adapter.data = viewModelData
+            adapter.notifyDataSetChanged()
+        }
         val recyclerView = view.findViewById<RecyclerView>(R.id.photos_grid)
         recyclerView.adapter = adapter
+        binding.load.setOnClickListener { viewModel.loadUnsplash() }
 
-        view.findViewById<Button>(R.id.load).setOnClickListener {
-            loadUnsplash()
 
-        }
 
-        view.findViewById<RecyclerView>(R.id.photos_grid).setOnClickListener {
-        }
+        view.findViewById<RecyclerView>(R.id.photos_grid).setOnClickListener {}
     }
 
-    fun loadUnsplash() {
-        API.retrofitApi.getRandomImage()
-            .enqueue(object : Callback<Photo> {
-                override fun onResponse(call: Call<Photo>, response: Response<Photo>) {
-                    val photo = response.body()
-                    if (photo != null) {
-                        adapter.data.add(photo)
-                        adapter.notifyDataSetChanged()
-                    }
-                }
-
-                override fun onFailure(call: Call<Photo>, t: Throwable) {
-                }
-            })
-    }
 
     private fun openImage(url: String) {
         val bundle = Bundle().apply {
