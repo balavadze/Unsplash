@@ -15,6 +15,7 @@ import androidx.navigation.NavController
 
 class MainViewModel : ViewModel (){
     val viewModelData = MutableLiveData<MutableList<Photo>>(mutableListOf())
+    val progessBar = MutableLiveData<Boolean>(false)
     fun loadUnsplash() {
         API.retrofitApi.getRandomImage()
             .enqueue(object : Callback<Photo> {
